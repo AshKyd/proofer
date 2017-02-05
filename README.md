@@ -9,6 +9,11 @@ This piggy-backs off a bunch of stuff:
 * Uses [Ractive](https://ractivejs.org/) for templating
 * Uses [Ace Editor](https://github.com/ajaxorg/ace) for displaying schemas & responses
 
+# Example project
+The proofer-rendered versino of the Apiary polls.apib can be found at:
+
+http://proofer-polls-apib.surge.sh/
+
 ## Why would I use this?
 
 Right now, you probably shouldn't. This is more of a proof of concept to:
