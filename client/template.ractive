@@ -1,0 +1,167 @@
+{{#partial permalink}}
+	<span class="title">{{meta.title}}</span>
+	<a class="permalink text-muted" title="{{meta.title}}" href="#{{slugify(meta.title)}}">🔗</a>
+{{/partial}}
+
+{{#partial copy}}
+	{{#if element === 'copy'}}
+		<div class="copy">{{{markdown(content)}}}</div>
+	{{/if}}
+{{/partial}}
+
+{{#partial httpContent}}
+	{{#if element === 'asset'}}
+<pre class="pre-scrollable rounded" on-click="loadInAce"><code>{{content}}</code></pre>
+<a class="button" href="#ace-editor-{{@keypath}}">View in editor</a>
+	{{/if}}
+{{/partial}}
+
+{{#partial httpTransaction}}
+	{{#if element === 'httpTransaction'}}
+		{{#content}}
+			{{#if element === 'httpRequest'}}
+				<div class="list-group mb-3">
+					<div class="list-group-item list-group-item-info">
+						<span class="mr-3 badge badge-default">{{method}}</span>
+						<code>{{href}}</code>
+					</div>
+					{{>httpTransactionPayloads}}
+
+				</div>
+			{{/if}}
+			{{#if element === 'httpResponse'}}
+				<div class="list-group">
+				<div class="list-group-item {{String(statusCode).match(/[23]\d\d/) ? 'list-group-item-success' : 'list-group-item-danger'}}">
+					<span class="mr-3 statusCode badge {{String(statusCode).match(/[23]\d\d/) ? 'badge-success' : 'badge-danger'}}">{{statusCode}}</span>
+					<code class="headers">{{#headers}}{{key}}: {{value}};{{/headers}}</code>
+				</div>
+				{{>httpTransactionPayloads}}
+				</div>
+			{{/if}}
+		{{/content}}
+	{{/if}}
+{{/partial}}
+
+{{#partial httpTransactionPayloads}}
+	{{#content}}
+		{{#if element === 'dataStructure'}}
+			{{>dataStructure}}
+		{{/if}}
+		{{#if element === 'asset'}}
+			<div class="list-group-item">{{contentType}}</div>
+			<div class="list-group-item">
+				{{>httpContent}}
+			</div>
+		{{/if}}
+	{{/content}}
+{{/partial}}
+
+{{#partial dataStructure}}
+	{{#if element === 'dataStructure'}}
+	<table class="table {{#if type==='object'}}table-bordered mt-3{{/if}}">
+		<thead><th>Property</th><th>Type</th><th>Description</th></thead>
+		<tbody>
+			{{#content}}
+				<tr>
+					<td>{{key}}{{#if required}} <span class="text-muted">Required</span>{{/if}}</td>
+					<td>{{type}}</td>
+					<td>
+						{{description}}
+						{{#if type === 'object' && this.content}}
+							{{>dataStructure}}
+						{{/if}}
+					</td>
+				</tr>
+			{{/content}}
+		</tbody>
+	</table>
+	{{/if}}
+{{/partial}}
+
+{{#partial content}}
+	{{>copy}}
+	{{#if element === 'resource'}}
+		<div class="resource">
+			<h2 class="mb-2">
+				<span class="text">{{title}}</span>
+				<a href="#{{categoryHash}}+{{slugify(title)}}" rel="permalink" title="Permalink" class="text-muted">#</a>
+			</h2>
+			{{#content}}
+				{{>copy}}
+				{{#if element === 'transition'}}
+					<div class="card">
+						<div class="card-header"><h3 class="m-0">{{title}}</h3></div>
+						{{#content}}
+							{{#if element === 'copy'}}
+								<div class="copy card-block">{{{markdown(content)}}}</div>
+							{{/if}}
+							<div class="card-block">
+							{{>httpTransaction}}
+							</div>
+						{{/content}}
+					</div>
+				{{/if}}
+			{{/content}}
+		</div>
+	{{/if}}
+{{/partial}}
+
+<div class="container-fluid">
+	<div class="row">
+		{{#if windowHash.includes('ace-editor')}}
+			<div id="editor" class="col-9">ace</div>
+		{{else}}
+	  	<div class="col-9">
+			{{#if windowHash === ''}}
+				<div class="category">
+					<div class="jumbotron">
+						<h1 class="display-3 m-0">{{meta.title}}</h1>
+						{{>content categories[0]}}
+					</div>
+				</div>
+			{{/if}}
+			{{#categories}}
+				{{#if windowHash === categoryHash}}
+				<div id="{{categoryHash}}" class="category">
+					<div class="jumbotron">
+						<h1 class="display-3 m-0">{{categoryTitle}}</h1>
+						{{#if isHeroSection(content[0])}}
+							<div class="hero-content">{{>content content[0]}}</div>
+						{{/if}}
+						{{#if (!isHeroSection(content[0])) || (isHeroSection(content[0]) && content.length > 1)}}
+							<hr class="my-4">
+							<div class="list-group">
+					  		{{#content}}
+								  {{#if title}}<a href="#{{categoryHash}}+{{slugify(title)}}" class="list-group-item list-group-item-action">{{title}}</a>{{/if}}
+					  		{{/content}}
+							</div>
+						{{/if}}
+					</div>
+					{{#content}}
+						{{#if !isHeroSection(this)}}
+							<div id="{{categoryHash}}+{{slugify(title)}}" class="permalink-section">
+								{{>content}}
+							</div>
+						{{/if}}
+					{{/content}}
+				</div>
+				{{/if}}
+			{{/categories}}
+	  	</div>
+
+		{{/if}}
+		<div class="col sidebar">
+			<div class="list-group">
+	  		{{#categories}}
+					{{#if categoryTitle}}
+					  <a href="#{{slugify(categoryTitle)}}" on-click="categorychange" class="list-group-item list-group-item-action flex-column align-items-start {{hash === slugify(categoryTitle) ? 'active' : 'inactive'}}">
+					    <div class="d-flex w-100 justify-content-between">
+					      {{categoryTitle}}
+					    </div>
+					  </a>
+					{{/if}}
+	  		{{/categories}}
+			</div>
+		</div>
+  </div>
+</div>

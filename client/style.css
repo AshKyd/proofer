@@ -1,0 +1,15 @@
+/**
+ * Nothing too special here, add your own styles.
+ */
+
+.container-fluid{padding-top:1rem;}
+
+pre.pre-scrollable{padding:0.5rem;background:#F1F4F6;width:100%;}
+
+ /* Lead paragraph under each resource */
+.display-2 + * > p:first-child,
+.jumbotron .copy > p:first-child{font-size: 1.25rem;font-weight: 300;}
+.card{margin-top:2rem;}
+
+.jumbotron{background:#F7F9F8;}
+.permalink-section{padding-top:4rem;}

@@ -1,0 +1,38 @@
+{
+  "name": "proofer",
+  "version": "1.0.0",
+  "description": "Compile API Blueprint to HTML using Ractive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-client-data": "./bin/proofer.js samples/polls.apib > client/data.json",
+    "build-client-js": "browserify client/init.js > client/init.min.js",
+    "build": "npm run build-client-data && npm run build-client-js"
+  },
+  "devDependencies": {
+    "brfs": "^1.4.3",
+    "browserify": "^14.0.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.14.1",
+    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-mocha": "^4.8.0",
+    "eslint-plugin-react": "^6.9.0",
+    "markdown-it": "^8.2.2",
+    "mockery": "^2.0.0"
+  },
+  "author": "Ash Kyd <ash@kyd.com.au>",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "dotty": "0.0.2",
+    "drafter.js": "^2.6.4",
+    "ejs": "^2.5.5"
+  },
+  "browserify": {
+    "transform": [
+      "brfs"
+    ]
+  }
+}
