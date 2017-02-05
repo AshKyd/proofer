@@ -1,6 +1,10 @@
 # Proofer
 A thing to render [API Blueprint](https://apiblueprint.org) documents in HTML.
 
+> proof (noun)
+> a trial impression of a page, taken from type or film and used for making corrections before final printing.
+
+This piggy-backs off a bunch of stuff:
 * Uses the [emscripten build of drafter](https://github.com/apiaryio/drafter.js) to parse apib files
 * Uses [Ractive](https://ractivejs.org/) for templating
 * Uses [Ace Editor](https://github.com/ajaxorg/ace) for displaying schemas & responses
