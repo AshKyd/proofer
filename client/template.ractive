@@ -151,9 +151,16 @@
 
 		{{/if}}
 		<div class="col sidebar">
+			<h1 class="h5">{{meta.title}}</h1>
+			<form class="form-inline mb-2">
+			  <label class="sr-only" for="inlineFormInput">Search</label>
+			  <input type="text" class=" form-control mb-2 mr-sm-2 mb-sm-0" value="{{searchTerm}}">
+			  <button type="submit" class=" btn btn-primary">🔎</button>
+			</form>
+
 			<div class="list-group">
 	  		{{#categories}}
-					{{#if categoryTitle}}
+					{{#if categoryTitle && (!searchTerm || JSON.stringify(this).toLowerCase().includes(searchTerm.toLowerCase()))}}
 					  <a href="#{{slugify(categoryTitle)}}" on-click="categorychange" class="list-group-item list-group-item-action flex-column align-items-start {{hash === slugify(categoryTitle) ? 'active' : 'inactive'}}">
 					    <div class="d-flex w-100 justify-content-between">
 					      {{categoryTitle}}

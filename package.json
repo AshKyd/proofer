@@ -7,9 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-client-data": "./bin/proofer.js samples/polls.apib > client/data.json",
     "build-client-js": "browserify client/init.js > client/init.min.js",
-    "build": "npm run build-client-data && npm run build-client-js"
+    "build": "npm run build-client-data && npm run build-client-js",
+    "server": "beefy --cwd client client/init.js:init.js"
   },
   "devDependencies": {
+    "beefy": "^2.1.8",
     "brfs": "^1.4.3",
     "browserify": "^14.0.0",
     "chai": "^3.5.0",
