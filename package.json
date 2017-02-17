@@ -6,6 +6,7 @@
   "bin": {
     "proof": "./bin/proofer.js"
   },
+  "repository" : "ashkyd/proofer",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-client-data": "./bin/proofer.js samples/polls.apib > client/data.json",
