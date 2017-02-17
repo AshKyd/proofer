@@ -9,20 +9,36 @@ This piggy-backs off a bunch of stuff:
 * Uses [Ractive](https://ractivejs.org/) for templating
 * Uses [Ace Editor](https://github.com/ajaxorg/ace) for displaying schemas & responses
 
-# Example project
+## Example project
 The proofer-rendered versino of the Apiary polls.apib can be found at:
 
 http://proofer-polls-apib.surge.sh/
 
-## Why would I use this?
+## Usage
 
-Right now, you probably shouldn't. This is more of a proof of concept to:
+### Command line
+```
+Usage: proofer [options]
 
-1. Prove a fully Javascript-based renderer can run without compiled dependencies
-2. Rapidly prototype different ways of presenting a Blueprint doc
+Options:
 
-With time I would like to decouple the build stuff and make this a proper,
-extendable thing.
+  -h, --help            output usage information
+  -V, --version         output the version number
+  -i, --apib [file]     API Blueprint input file
+  -o, --output [dir]    Output dir [stdout]
+  -t, --template [dir]  Also output HTML template in conjunction with -o [default]
+```
+
+### Programmatic usage
+You can require this in and use it programmatically like so:
+
+```
+const proofer = require('proofer');
+proofer(pathToApib, outputDir, templateToUse, callback);
+```
+
+outputDir and templateToUse are optional and will return the rendered JSON as
+the callback argument. Specifying both will output as per the command line app.
 
 ## Building
 

@@ -1,11 +1,20 @@
 #!/usr/bin/env node
-
-const fs = require('fs');
+const program = require('commander');
 const proofer = require('../src');
 
-const markdown = fs.readFileSync(process.argv[process.argv.length - 1], 'utf8');
+program
+  .version(require('../package.json').version)
+  .option('-i, --apib [file]', 'API Blueprint input file')
+  .option('-o, --output [dir]', 'Output dir [stdout]', 'stdout')
+  .option('-t, --template [dir]', 'Also output HTML template in conjunction with -o [default]', 'none')
+  .parse(process.argv);
 
-proofer.parse(markdown, (error, result) => {
-  if (error) throw error;
-  console.log(JSON.stringify(result,null,2));
-})
+if (!program.apib) {
+  program.outputHelp();
+  process.exit();
+}
+
+proofer(program.apib, program.output, program.template, (error, json) => {
+  if (error) return console.error(error.message);
+  if (program.output === 'stdout') console.log(json);
+});
