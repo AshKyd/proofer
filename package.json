@@ -1,12 +1,12 @@
 {
   "name": "proofer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compile API Blueprint to HTML using Ractive",
   "main": "src/index.js",
   "bin": {
     "proof": "./bin/proofer.js"
   },
-  "repository" : "ashkyd/proofer",
+  "repository": "ashkyd/proofer",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-client-data": "./bin/proofer.js samples/polls.apib > client/data.json",
