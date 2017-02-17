@@ -14,4 +14,7 @@ if (!program.apib) {
   process.exit();
 }
 
-proofer(program.apib, program.output, program.template);
+proofer(program.apib, program.output, program.template, (error, json) => {
+  if (error) return console.error(error.message);
+  if (program.output === 'stdout') console.log(json);
+});

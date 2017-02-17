@@ -4,7 +4,7 @@ const proofer = require('./parse');
 const async = require('async');
 const copy = require('recursive-copy');
 
-module.exports = function index(apib, output, template) {
+module.exports = function index(apib, output, template, callback) {
   async.waterfall([
     // parse the apib
     function parser(done) {
@@ -14,9 +14,8 @@ module.exports = function index(apib, output, template) {
 
     // Write to the output folder (or stdout)
     function outputFolder(json, done) {
-      if (output === 'stdout') {
-        console.log(json);
-        process.exit();
+      if (!output || output === 'stdout') {
+        return callback(null, json);
       }
 
       // Load the specified template or the default template
@@ -33,8 +32,7 @@ module.exports = function index(apib, output, template) {
       try {
         if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
       } catch (e) {
-        console.error(`Could not create directory ${outputDir}`);
-        process.exit();
+        return callback(new Error(`Could not create directory ${outputDir}`));
       }
 
       if (inputDir) {
@@ -44,5 +42,5 @@ module.exports = function index(apib, output, template) {
       // Write the JSON output
       fs.writeFileSync(path.join(outputDir, 'data.json'), json);
     },
-  ]);
+  ], callback);
 }
