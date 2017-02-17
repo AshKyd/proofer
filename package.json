@@ -30,7 +30,6 @@
   },
   "author": "Ash Kyd <ash@kyd.com.au>",
   "license": "ISC",
-  "private": true,
   "dependencies": {
     "async": "^2.1.4",
     "commander": "^2.9.0",
