@@ -1,6 +1,6 @@
 {
   "name": "proofer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Compile API Blueprint to HTML using Ractive",
   "main": "src/index.js",
   "bin": {
