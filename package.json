@@ -9,7 +9,7 @@
   "repository": "ashkyd/proofer",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-client-data": "./bin/proofer.js samples/polls.apib > client/data.json",
+    "build-client-data": "./bin/proofer.js -i samples/polls.apib > client/data.json",
     "build-client-js": "browserify client/init.js > client/init.min.js",
     "prepublish": "npm run build-client-js",
     "server": "beefy --cwd client client/init.js:init.min.js"
