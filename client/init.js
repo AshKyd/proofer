@@ -1,4 +1,5 @@
 const MarkdownIt = require('markdown-it');
+Ractive.DEBUG = String(window.location).match(/localhost/);
 function init(data, ractiveTemplate){
   const md = new MarkdownIt({ html: true });
   const parseHash = hash => {
